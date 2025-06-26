@@ -1,32 +1,8 @@
 from openpyxl import load_workbook
-import shutil
 import os
 
 # List of emails to remove
 emails_to_remove = [
-    "heathbyerly761@gmail.com",
-    "williams.jason251@gmail.com",
-    "medmonds53@gmail.com",
-    "iteachicoach7575@gmail.com",
-    "crobertoholmes@gmail.com",
-    "cristal00s@gmail.com",
-    "shannantx@icloud.com",
-    "0424hud@gmail.com",
-    "ruby.campbell@att.net",
-    "dademon062@icloud.com",
-    "tlazauskas77@yahoo.com",
-    "chuckhenderson8857@gmail.com",
-    "ingrid2451@gmail.com",
-    "taijemarshall22@gmail.com",
-    "suburbanscott473@gmail.com",
-    "catherinelaw228@gmail.com",
-    "alissah503@gmail.com",
-    "jessicastarks_49@yahoo.com",
-    "amymoore0972@gmail.com",
-    "poroletty2010@icloud.com",
-    "jacquiece.toomer@yahoo.com",
-    "thatrooper@icloud.com"
-
 
 ]
 
@@ -35,11 +11,6 @@ def remove_emails_from_excel(file_path):
     if not os.path.exists(file_path):
         print("❌ File not found.")
         return
-
-    # Backup original
-    backup_path = file_path.replace(".xlsx", "_backup.xlsx")
-    shutil.copy(file_path, backup_path)
-    print(f"📦 Backup created: {backup_path}")
 
     # Normalize emails
     emails_to_remove_clean = [email.strip().lower() for email in emails_to_remove]
@@ -66,7 +37,6 @@ def remove_emails_from_excel(file_path):
         if cell_value and cell_value.strip().lower() in emails_to_remove_clean:
             found_emails.append(cell_value.strip())
 
-    # Show matched emails
     if not found_emails:
         print("⚠️ No matching emails found.")
         return
@@ -77,7 +47,7 @@ def remove_emails_from_excel(file_path):
 
     input("🔔 Press Enter to remove these emails from the file...")
 
-    try:  # Delete rows from bottom up
+    try:
         rows_deleted = 0
         for row in range(ws.max_row, 1, -1):
             cell_value = ws.cell(row=row, column=email_col_index).value
@@ -89,10 +59,9 @@ def remove_emails_from_excel(file_path):
         print(f"❌ Error while deleting rows: {e}")
         return
 
-
     print(f"✅ Removed {rows_deleted} email(s) from '{file_path}':")
     for email in found_emails:
         print(f"   ✔️ {email}")
 
 # 📁 Call the function
-remove_emails_from_excel("jeki.xlsx")
+remove_emails_from_excel("15k 23-6 n3_backup.xlsx")
